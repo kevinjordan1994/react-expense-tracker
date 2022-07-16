@@ -2,6 +2,11 @@ import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 function App() {
+  const addNewExpense = (newExpense) => {
+    expenses.push(newExpense);
+    console.log(expenses);
+  };
+
   const expenses = [
     {
       id: "e1",
@@ -26,7 +31,7 @@ function App() {
 
   return (
     <div>
-      <NewExpense />
+      <NewExpense onGenerateNewExpense={addNewExpense} />
       <Expenses expenses={expenses} />
     </div>
   );
