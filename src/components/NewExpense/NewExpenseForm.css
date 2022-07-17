@@ -24,3 +24,8 @@
 .new-expense__actions {
   text-align: right;
 }
+
+.open-form__button {
+  justify-self: center;
+  align-self: center;
+}
