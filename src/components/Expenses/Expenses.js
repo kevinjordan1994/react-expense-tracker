@@ -6,37 +6,33 @@ import "./Expenses.css";
 
 function Expenses(props) {
   // const today = new Date().getFullYear().toString();
-  const [currentYear, setNewFilterYear] = useState(`2020`);
+  const [currentYear, setNewFilterYear] = useState(`All`);
 
   const filterYear = (year) => {
     setNewFilterYear(year);
-    console.log(year, currentYear);
   };
 
+  const filteredExpenses = props.expenses.filter((expense) => {
+    if (currentYear === `All`) return true;
+    return expense.date.getFullYear().toString() === currentYear;
+  });
+
   return (
-    <div className="expenses">
-      <ExpenseFilter selectedYear={currentYear} onFilterYear={filterYear} />
-      <Card>
-        <ExpenseItem
-          title={props.expenses[0].title}
-          amount={props.expenses[0].amount}
-          date={props.expenses[0].date}
-        ></ExpenseItem>
-        <ExpenseItem
-          title={props.expenses[1].title}
-          amount={props.expenses[1].amount}
-          date={props.expenses[1].date}
-        ></ExpenseItem>
-        <ExpenseItem
-          title={props.expenses[2].title}
-          amount={props.expenses[2].amount}
-          date={props.expenses[2].date}
-        ></ExpenseItem>
-        <ExpenseItem
-          title={props.expenses[3].title}
-          amount={props.expenses[3].amount}
-          date={props.expenses[3].date}
-        ></ExpenseItem>
+    <div>
+      <Card className="expenses">
+        <ExpenseFilter selectedYear={currentYear} onFilterYear={filterYear} />
+        {filteredExpenses.length === 0 ? (
+          <p>No Expenses Found...</p>
+        ) : (
+          filteredExpenses.map((expense) => (
+            <ExpenseItem
+              key={expense.id}
+              title={expense.title}
+              amount={expense.amount}
+              date={expense.date}
+            />
+          ))
+        )}
       </Card>
     </div>
   );
