@@ -27,7 +27,7 @@ function NewExpenseForm(props) {
     event.preventDefault();
     const newExpense = {
       title: currentTitle,
-      amount: currentAmount,
+      amount: +currentAmount,
       date: new Date(currentDate),
     };
     props.onSubmitNewExpense(newExpense);
